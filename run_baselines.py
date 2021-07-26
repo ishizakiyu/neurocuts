@@ -226,9 +226,9 @@ def gen_result(file_name):
 if __name__ == "__main__":
     if len(sys.argv) <= 1:
         print("Usage")
-        print("  tool.py sync")
-        print("  tool.py gen_rules")
-        print("  tool.py expr")
+        print("  run_baselines.py sync")
+        print("  run_baselines.py gen_rules")
+        print("  run_baselines.py expr")
         sys.exit()
 
     if sys.argv[1] == "sync":
