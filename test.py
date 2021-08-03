@@ -316,9 +316,9 @@ def test_cutsplit():
 
 
 if __name__ == "__main__":
-    #test_tree()
-    #test_refinements()
-    #test_hicuts()
-    #test_hypercuts()
-    #test_efficuts()
+    # test_tree()
+    # test_refinements()
+    # test_hicuts()
+    # test_hypercuts()
+    # test_efficuts()
     test_cutsplit()

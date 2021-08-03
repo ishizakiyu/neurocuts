@@ -1,34 +1,31 @@
 #!/usr/bin/env python
 
+from mask import PartitionMaskModel
+from neurocuts_env import NeuroCutsEnv
+from ray.rllib.evaluation.postprocessing import Postprocessing
+from ray.rllib.evaluation.sample_batch import SampleBatch
+from ray.tune.registry import register_env
+from ray.tune import run_experiments, grid_search
+from ray import tune
+import ray
+from ray.rllib.models import ModelCatalog
+import numpy as np
+from gym.spaces import Tuple, Box, Discrete, Dict
+import json
+import glob
+import os
+import argparse
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 
-import argparse
-import os
-import glob
-import json
-
-from gym.spaces import Tuple, Box, Discrete, Dict
-import numpy as np
-
-from ray.rllib.models import ModelCatalog
-import ray
-from ray import tune
-from ray.tune import run_experiments, grid_search
-from ray.tune.registry import register_env
-from ray.rllib.evaluation.sample_batch import SampleBatch
-from ray.rllib.evaluation.postprocessing import Postprocessing
-
-from neurocuts_env import NeuroCutsEnv
-from mask import PartitionMaskModel
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--rules",
-    type=lambda expr: [
-        os.path.abspath("classbench/{}".format(r)) for r in expr.split(",")],
-    default="acl5_1k",
-    help="Rules file name or list of rules files separated by comma.")
+                    type=lambda expr: [
+                        os.path.abspath("classbench/{}".format(r)) for r in expr.split(",")],
+                    default="acl5_1k",
+                    help="Rules file name or list of rules files separated by comma.")
 
 parser.add_argument(
     "--dump-dir",
@@ -162,7 +159,7 @@ if __name__ == "__main__":
                 "entropy_coeff": 0.01,
                 "callbacks": {
                     "on_episode_end": tune.function(on_episode_end),
-#                    "on_postprocess_traj": tune.function(postprocess_gae),
+                    #                    "on_postprocess_traj": tune.function(postprocess_gae),
                 },
                 "env_config": {
                     "tree_gae": False,

@@ -1,4 +1,5 @@
-import math, sys
+import math
+import sys
 import datetime
 
 from tree import *
@@ -80,7 +81,7 @@ class CutSplit(object):
             src_sum = sum([1 for i in src_bins if i > self.leaf_threshold])
             dst_sum = sum([1 for i in dst_bins if i > self.leaf_threshold])
             if src_sum < dst_sum or \
-                    (src_sum == dst_sum and \
+                    (src_sum == dst_sum and
                         len(rule_subsets[1]) <= len(rule_subsets[2])):
                 rule_subsets[1].append(rule)
                 for i in range(

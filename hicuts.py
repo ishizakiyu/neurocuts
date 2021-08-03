@@ -31,7 +31,7 @@ class HiCuts(object):
         # compute the number of cuts
         range_left = node.ranges[cut_dimension * 2]
         range_right = node.ranges[cut_dimension * 2 + 1]
-        #cut_num = min(
+        # cut_num = min(
         #    max(4, int(math.sqrt(len(node.rules)))),
         #    range_right - range_left)
         cut_num = min(2, range_right - range_left)

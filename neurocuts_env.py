@@ -409,7 +409,7 @@ class NeuroCutsEnv(MultiAgentEnv):
         return {
             "real_obs": zeros,
             "action_mask": np.array([1] *
-                (5 + self.max_cuts_per_dimension + self.num_part_levels)),
+                                    (5 + self.max_cuts_per_dimension + self.num_part_levels)),
         }
 
     def _encode_state(self, node):

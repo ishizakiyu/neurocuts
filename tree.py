@@ -16,8 +16,8 @@ class Rule:
         self.names = ["src_ip", "dst_ip", "src_port", "dst_port", "proto"]
 
     def is_intersect(self, dimension, left, right):
-        return not (left >= self.ranges[dimension*2+1] or \
-            right <= self.ranges[dimension*2])
+        return not (left >= self.ranges[dimension*2+1] or
+                    right <= self.ranges[dimension*2])
 
     def is_intersect_multi_dimension(self, ranges):
         for i in range(5):
@@ -53,10 +53,10 @@ class Rule:
 
     def is_covered_by(self, other, ranges):
         for i in range(5):
-            if (max(self.ranges[i*2], ranges[i*2]) < \
-                    max(other.ranges[i*2], ranges[i*2]))or \
-                    (min(self.ranges[i*2+1], ranges[i*2+1]) > \
-                    min(other.ranges[i*2+1], ranges[i*2+1])):
+            if (max(self.ranges[i*2], ranges[i*2]) <
+                    max(other.ranges[i*2], ranges[i*2])) or \
+                    (min(self.ranges[i*2+1], ranges[i*2+1]) >
+                     min(other.ranges[i*2+1], ranges[i*2+1])):
                 return False
         return True
 
@@ -70,22 +70,22 @@ class Rule:
 
 def load_rules_from_file(file_name):
     rules = []
-    rule_fmt = re.compile(r'^@(\d+).(\d+).(\d+).(\d+)/(\d+) '\
-        r'(\d+).(\d+).(\d+).(\d+)/(\d+) ' \
-        r'(\d+) : (\d+) ' \
-        r'(\d+) : (\d+) ' \
-        r'(0x[\da-fA-F]+)/(0x[\da-fA-F]+) ' \
-        r'(.*?)')
+    rule_fmt = re.compile(r'^@(\d+).(\d+).(\d+).(\d+)/(\d+) '
+                          r'(\d+).(\d+).(\d+).(\d+)/(\d+) '
+                          r'(\d+) : (\d+) '
+                          r'(\d+) : (\d+) '
+                          r'(0x[\da-fA-F]+)/(0x[\da-fA-F]+) '
+                          r'(.*?)')
     for idx, line in enumerate(open(file_name)):
         elements = line[1:-1].split('\t')
         line = line.replace('\t', ' ')
 
         sip0, sip1, sip2, sip3, sip_mask_len, \
-        dip0, dip1, dip2, dip3, dip_mask_len, \
-        sport_begin, sport_end, \
-        dport_begin, dport_end, \
-        proto, proto_mask = \
-        (eval(rule_fmt.match(line).group(i)) for i in range(1, 17))
+            dip0, dip1, dip2, dip3, dip_mask_len, \
+            sport_begin, sport_end, \
+            dport_begin, dport_end, \
+            proto, proto_mask = \
+            (eval(rule_fmt.match(line).group(i)) for i in range(1, 17))
 
         sip0 = (sip0 << 24) | (sip1 << 16) | (sip2 << 8) | sip3
         sip_begin = sip0 & (~((1 << (32 - sip_mask_len)) - 1))
@@ -307,8 +307,7 @@ class Tree:
         self.depth = 1
         self.node_count = 1
 
-    def create_node(self, id, ranges, rules, depth, partitions,
-                    manual_partition):
+    def create_node(self, id, ranges, rules, depth, partitions, manual_partition):
         node = Node(id, ranges, rules, depth, partitions, manual_partition)
 
         if self.refinements["rule_overlay"]:
@@ -381,8 +380,7 @@ class Tree:
         self.update_tree(node, children)
 
     def partition_current_node(self, part_dim, part_size):
-        return self.partition_node(self.current_node, part_dimension,
-                                   part_size)
+        return self.partition_node(self.current_node, part_dimension, part_size)
 
     def partition_node(self, node, part_dim, part_size):
         assert part_dim in [0, 1, 2, 3, 4], part_dim
@@ -655,7 +653,7 @@ class Tree:
                     rules = set(last_node.rules).union(
                         set(nodes_copy[i].rules))
                     if len(rules) < len(last_node.rules) + len(nodes_copy[i].rules) and \
-                        len(rules) < max_rule_count:
+                            len(rules) < max_rule_count:
                         rules = list(rules)
                         rules.sort(key=lambda i: i.priority)
                         last_node.rules = rules
@@ -687,8 +685,8 @@ class Tree:
         #     region boundary for non-leaf: 16 bytes
         #     each child pointer: 4 bytes
         #     each rule: 16 bytes
-        result = {"bytes_per_rule": 0, "memory_access": 0, \
-            "num_leaf_node": 0, "num_nonleaf_node": 0, "num_node": 0}
+        result = {"bytes_per_rule": 0, "memory_access": 0,
+                  "num_leaf_node": 0, "num_nonleaf_node": 0, "num_node": 0}
         nodes = [self.root]
         while len(nodes) != 0:
             next_layer_nodes = []

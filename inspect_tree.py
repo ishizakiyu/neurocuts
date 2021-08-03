@@ -27,8 +27,8 @@ def check_classification(tree):
         else:
             packet = (random.randint(0, 2**32 - 1), random.randint(
                 0, 2**32 - 1), random.randint(0, 2**16 - 1),
-                      random.randint(0, 2**16 - 1), random.randint(
-                          0, 2**5 - 1))
+                random.randint(0, 2**16 - 1), random.randint(
+                0, 2**5 - 1))
         expected_match = None
         for r in tree.rules:
             if r.matches(packet):

@@ -1,4 +1,5 @@
-import math, sys
+import math
+import sys
 import datetime
 
 from tree import *
@@ -31,7 +32,7 @@ class HyperCuts(object):
         # compute the number of cuts
         range_left = node.ranges[cut_dimension * 2]
         range_right = node.ranges[cut_dimension * 2 + 1]
-        #cut_num = min(
+        # cut_num = min(
         #    max(4, int(math.sqrt(len(node.rules)))),
         #    range_right - range_left)
         cut_num = min(2, range_right - range_left)
@@ -68,10 +69,10 @@ class HyperCuts(object):
                 len(distinct_components) /
                 (node.ranges[i * 2 + 1] - node.ranges[i * 2]))
         mean_count = sum(distinct_components_count) / 5.0
-        cut_dimensions = [i for i in range(5) \
-            if distinct_components_count[i] > mean_count]
-        cut_dimensions.sort(key=lambda i: \
-            (-distinct_components_count[i], -distinct_components_ratio[i]))
+        cut_dimensions = [i for i in range(5)
+                          if distinct_components_count[i] > mean_count]
+        cut_dimensions.sort(key=lambda i:
+                            (-distinct_components_count[i], -distinct_components_ratio[i]))
 
         # compute cuts for the dimensions
         cut_nums = []
@@ -102,26 +103,26 @@ class HyperCuts(object):
                 # compute statistics
                 current_mean = sum(child_rules_count) / len(child_rules_count)
                 current_max = max(child_rules_count)
-                current_empty = sum([1 for count in child_rules_count \
-                    if count == 0])
+                current_empty = sum([1 for count in child_rules_count
+                                     if count == 0])
 
                 # check condition
                 if cut_num > range_right - range_left or \
-                    total_cuts * cut_num > self.spfac * math.sqrt(len(node.rules)) or \
-                    abs(last_mean - current_mean) < 0.1 * last_mean or \
-                    abs(last_mean - current_mean) < 0.1 * last_mean or \
-                    abs(last_empty - current_empty) > 5:
+                        total_cuts * cut_num > self.spfac * math.sqrt(len(node.rules)) or \
+                        abs(last_mean - current_mean) < 0.1 * last_mean or \
+                        abs(last_mean - current_mean) < 0.1 * last_mean or \
+                        abs(last_empty - current_empty) > 5:
                     cut_num //= 2
                     break
             cut_nums.append(cut_num)
             total_cuts *= cut_num
 
         cut_dimensions = [cut_dimensions[i]
-            for i in range(len(cut_nums)) \
-            if cut_nums[i] != 1]
+                          for i in range(len(cut_nums))
+                          if cut_nums[i] != 1]
         cut_nums = [cut_nums[i]
-            for i in range(len(cut_nums)) \
-            if cut_nums[i] != 1]
+                    for i in range(len(cut_nums))
+                    if cut_nums[i] != 1]
         return (cut_dimensions, cut_nums)
 
     def build_tree(self, rules):
@@ -151,8 +152,8 @@ class HyperCuts(object):
                 cut_dimension_hicuts, cut_num_hicuts = self.select_action_hicuts(
                     tree, node)
                 if cut_num_hicuts <= 1 and print_count < 100:
-                    print("hypercuts turn to hicuts cut_num <=1, node rules number:",\
-                        len(node.rules))
+                    print("hypercuts turn to hicuts cut_num <=1, node rules number:",
+                          len(node.rules))
                     print_count += 1
                 tree.cut_current_node(cut_dimension_hicuts, cut_num_hicuts)
             else:
@@ -189,8 +190,8 @@ class HyperCuts(object):
             "memory_access"] = result_wset["memory_access"] + result_rset["memory_access"]
         result["num_node"] = result_wset["num_node"] + result_rset["num_node"]
         result["bytes_per_rule"] = \
-            (result_wset["bytes_per_rule"] * len(rules_wset) + \
-            result_rset["bytes_per_rule"] * len(rules_rset)) / \
+            (result_wset["bytes_per_rule"] * len(rules_wset) +
+             result_rset["bytes_per_rule"] * len(rules_rset)) / \
             len(self.rules)
 
         print("%s Result %d %d %d" %

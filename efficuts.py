@@ -34,7 +34,7 @@ class EffiCuts(object):
         # compute the number of cuts
         range_left = node.ranges[cut_dimension * 2]
         range_right = node.ranges[cut_dimension * 2 + 1]
-        #cut_num = min(
+        # cut_num = min(
         #    max(4, int(math.sqrt(len(node.rules)))),
         #    range_right - range_left)
         cut_num = min(2, range_right - range_left)
@@ -71,10 +71,10 @@ class EffiCuts(object):
                 len(distinct_components) /
                 (node.ranges[i * 2 + 1] - node.ranges[i * 2]))
         mean_count = sum(distinct_components_count) / 5.0
-        cut_dimensions = [i for i in range(5) \
-            if distinct_components_count[i] > mean_count]
-        cut_dimensions.sort(key=lambda i: \
-            (-distinct_components_count[i], -distinct_components_ratio[i]))
+        cut_dimensions = [i for i in range(5)
+                          if distinct_components_count[i] > mean_count]
+        cut_dimensions.sort(key=lambda i:
+                            (-distinct_components_count[i], -distinct_components_ratio[i]))
 
         # compute cuts for the dimensions
         cut_nums = []
@@ -105,26 +105,26 @@ class EffiCuts(object):
                 # compute statistics
                 current_mean = sum(child_rules_count) / len(child_rules_count)
                 current_max = max(child_rules_count)
-                current_empty = sum([1 for count in child_rules_count \
-                    if count == 0])
+                current_empty = sum([1 for count in child_rules_count
+                                     if count == 0])
 
                 # check condition
                 if cut_num > range_right - range_left or \
-                    total_cuts * cut_num > self.spfac * math.sqrt(len(node.rules)) or \
-                    abs(last_mean - current_mean) < 0.1 * last_mean or \
-                    abs(last_mean - current_mean) < 0.1 * last_mean or \
-                    abs(last_empty - current_empty) > 5:
+                        total_cuts * cut_num > self.spfac * math.sqrt(len(node.rules)) or \
+                        abs(last_mean - current_mean) < 0.1 * last_mean or \
+                        abs(last_mean - current_mean) < 0.1 * last_mean or \
+                        abs(last_empty - current_empty) > 5:
                     cut_num //= 2
                     break
             cut_nums.append(cut_num)
             total_cuts *= cut_num
 
         cut_dimensions = [cut_dimensions[i]
-            for i in range(len(cut_nums)) \
-            if cut_nums[i] != 1]
+                          for i in range(len(cut_nums))
+                          if cut_nums[i] != 1]
         cut_nums = [cut_nums[i]
-            for i in range(len(cut_nums)) \
-            if cut_nums[i] != 1]
+                    for i in range(len(cut_nums))
+                    if cut_nums[i] != 1]
         return (cut_dimensions, cut_nums)
 
     def build_tree(self, rules):
@@ -200,7 +200,7 @@ class EffiCuts(object):
                     # only consider rule subsets that differ in one dimension
                     if len(rule_subsets[j]) > 0 and \
                             bin(j).count("1") == 4 and \
-                            bin(i^j).count("1") == 1:
+                            bin(i ^ j).count("1") == 1:
                         candidate_index.append(j)
 
                 # then consider rule subsets with 2 large dimensions
@@ -209,7 +209,7 @@ class EffiCuts(object):
                         # only consider rule subsets that differ in one dimension
                         if len(rule_subsets[j]) > 0 and \
                                 bin(j).count("1") == 2 and \
-                                bin(i^j).count("1") == 1:
+                                bin(i ^ j).count("1") == 1:
                             candidate_index.append(j)
 
                 if len(candidate_index) > 0:

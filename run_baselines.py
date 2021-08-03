@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
-import sys, os, time, subprocess, random, datetime
+import sys
+import os
+import time
+import subprocess
+import random
+import datetime
 
 from hicuts import *
 from hypercuts import *
@@ -24,7 +29,7 @@ for i in range(1, 3):
 
 
 def exe_cmd(cmd):
-    #print "\t", cmd
+    # print "\t", cmd
     subprocess.call(cmd, shell=True)
 
 
@@ -83,7 +88,7 @@ def run_all():
         for j in j_list:
             # for j in [1000, 10000, 100000]:
             print("%s Rules %s_%d" % (datetime.datetime.now(), i, j))
-            for k in k_list:  #, "CutSplit"]:
+            for k in k_list:  # , "CutSplit"]:
                 rules = load_rules_from_file("classbench/%s_%d" % (i, j))
                 cuts = None
                 if k == "HiCuts":
@@ -114,7 +119,7 @@ def run_all_hicuts(files_type):
         for i in i_list:
             # for j in [1000, 10000, 100000]:
             print("%s Rules %s_%d" % (datetime.datetime.now(), i, j))
-            for k in k_list:  #, "CutSplit"]:
+            for k in k_list:  # , "CutSplit"]:
                 rules = load_rules_from_file("classbench/%s_%d" % (i, j))
                 cuts = None
                 if k == "HiCuts":
@@ -146,7 +151,7 @@ def run_all_hypercuts(files_type):
         for j in j_list:
             # for j in [1000, 10000, 100000]:
             print("%s Rules %s_%d" % (datetime.datetime.now(), i, j))
-            for k in k_list:  #, "CutSplit"]:
+            for k in k_list:  # , "CutSplit"]:
                 rules = load_rules_from_file("classbench/%s_%d" % (i, j))
                 cuts = None
                 if k == "HiCuts":
@@ -192,7 +197,7 @@ def run_all_efficuts(files_type):
         for i in i_list:
             # for j in [1000, 10000, 100000]:
             print("%s Rules %s_%d" % (datetime.datetime.now(), i, j))
-            for k in k_list:  #, "CutSplit"]:
+            for k in k_list:  # , "CutSplit"]:
                 rules = load_rules_from_file("classbench/%s_%d" % (i, j))
                 cuts = None
                 if k == "HiCuts":
