@@ -35,8 +35,8 @@ def sync():
 def gen_rules():
     for i in seed_files:
         for j in [1000, 10000, 100000]:
-            cmd = "./db_generator/db_generator -bc parameter_files/%s " % i + \
-                "%d 2 0.5 -0.1 %s_%d" % (j, i, j)
+            cmd = "../classbench/db_generator/db_generator -bc ../classbench/parameter_files/%s " % i + \
+                "%d 2 0.5 -0.1 ./generated_rules/%s_%d" % (j, i, j)
             exe_cmd(cmd)
 
 

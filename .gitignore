@@ -1,3 +1,5 @@
 .DS_Store
 __pycache__
 trash
+generated_rules/*
+!.keep
